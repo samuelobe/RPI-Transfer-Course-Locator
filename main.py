@@ -5,10 +5,32 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.common.by import By
 import tkinter as tk
+import time
 from tkinter import filedialog
 
+
+SIS_link = 'https://sis.rpi.edu/rss/yhwwkwags.P_Web_Artic_Guide?'
 options = webdriver.ChromeOptions()
 driver = webdriver.Chrome('chromedriver.exe',chrome_options = options)
-driver.get('https://myproviderhq.com/v3app/a/?6713520D04184E041C0D022C0D140C1C130C11166E1E0A300C0B18584A1F4E2F0C0F42151B110C560D0D7815545D0B50061110795F5D345200435D074717655C000A4345574550580D2659565C56045D0F55321717210C060B00014E5A7900545B175F5311440C0C70594A5D5C53565F127145507A0606085D574A447E5C545D4715471C111C072253232C5F2727344502472362565659585241180C5C55594C5B22445F292C74575E5156275D42470044/&redir=1') 
+driver.get(SIS_link) 
 driver.maximize_window()
 
+time.sleep(2)
+num_states = len(driver.find_elements_by_xpath('/html/body/div[3]/form/table[1]/tbody/tr[2]/td[1]/select/option'))
+
+for i in range(1, num_states+1):
+    driver.find_element_by_xpath('/html/body/div[3]/form/table[1]/tbody/tr[2]/td[1]/select/option['+str(i)+']').click()
+    get_instititions_btn = driver.find_element_by_xpath('/html/body/div[3]/form/table[2]/tbody/tr[1]/td/input')
+    get_instititions_btn.click()
+    num_institutions = len(driver.find_elements_by_xpath('/html/body/div[3]/form/table[2]/tbody/tr/td[2]/select/option'))
+
+    for j in range(1, num_institutions+1):
+        driver.find_element_by_xpath('/html/body/div[3]/form/table[2]/tbody/tr/td[2]/select/option['+str(j)+']').click()
+        #get_courses_btn = driver.find_element_by_xpath('/html/body/div[3]/form/table[3]/tbody/tr[1]/td/input')
+        #get_courses_btn.click()
+    if i > 1:
+        reset_btn = driver.find_element_by_xpath('/html/body/div[3]/form/table[3]/tbody/tr[2]/td/input')
+        reset_btn.click()
+
+
+driver.close()
