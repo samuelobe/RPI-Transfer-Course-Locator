@@ -6,7 +6,6 @@ from selenium.webdriver.support.select import Select
 from selenium.webdriver.common.by import By
 import time
 
-
 start = time.time() #Begin runtime calculation
 
 course_code = "CSCI 2200" #Enter the course number here in the following format: "CSCI 1200"
@@ -49,7 +48,6 @@ for i in range(1, num_states+1):
     if i > 1:
         reset_btn = driver.find_element_by_xpath('/html/body/div[3]/form/table[3]/tbody/tr[2]/td/input')
         reset_btn.click()
-
 
 driver.close()
 end = time.time()
