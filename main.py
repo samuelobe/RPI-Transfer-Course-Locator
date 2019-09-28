@@ -4,9 +4,8 @@ from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.common.by import By
-import tkinter as tk
 import time
-from tkinter import filedialog
+
 
 start = time.time() #Begin runtime calculation
 
