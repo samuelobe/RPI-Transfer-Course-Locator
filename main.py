@@ -10,7 +10,7 @@ from tkinter import filedialog
 
 start = time.time() #Begin runtime calculation
 
-course_code = "CSCI 1200"
+course_code = "CSCI 2200" #Enter the course number here in the following format: "CSCI 1200"
 SIS_link = 'https://sis.rpi.edu/rss/yhwwkwags.P_Web_Artic_Guide?'
 options = webdriver.ChromeOptions()
 driver = webdriver.Chrome('chromedriver.exe',chrome_options = options)
