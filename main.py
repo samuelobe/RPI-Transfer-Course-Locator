@@ -8,7 +8,9 @@ import tkinter as tk
 import time
 from tkinter import filedialog
 
+start = time.time() #Begin runtime calculation
 
+course_code = "CSCI 1200"
 SIS_link = 'https://sis.rpi.edu/rss/yhwwkwags.P_Web_Artic_Guide?'
 options = webdriver.ChromeOptions()
 driver = webdriver.Chrome('chromedriver.exe',chrome_options = options)
@@ -22,15 +24,34 @@ for i in range(1, num_states+1):
     driver.find_element_by_xpath('/html/body/div[3]/form/table[1]/tbody/tr[2]/td[1]/select/option['+str(i)+']').click()
     get_instititions_btn = driver.find_element_by_xpath('/html/body/div[3]/form/table[2]/tbody/tr[1]/td/input')
     get_instititions_btn.click()
+
     num_institutions = len(driver.find_elements_by_xpath('/html/body/div[3]/form/table[2]/tbody/tr/td[2]/select/option'))
 
     for j in range(1, num_institutions+1):
-        driver.find_element_by_xpath('/html/body/div[3]/form/table[2]/tbody/tr/td[2]/select/option['+str(j)+']').click()
-        #get_courses_btn = driver.find_element_by_xpath('/html/body/div[3]/form/table[3]/tbody/tr[1]/td/input')
-        #get_courses_btn.click()
+        uni_name = driver.find_element_by_xpath('/html/body/div[3]/form/table[2]/tbody/tr/td[2]/select/option['+str(j)+']')
+        uni_name.click()
+        uni_name = uni_name.text
+        get_courses_btn = driver.find_element_by_xpath('/html/body/div[3]/form/table[3]/tbody/tr[1]/td/input')
+        get_courses_btn.click()
+
+        num_courses = len(driver.find_elements_by_xpath('/html/body/div[3]/table[1]/tbody/tr'))
+      
+        for k in range(2, num_courses//2,2):
+            try:
+                ren_course = driver.find_element_by_xpath('/html/body/div[3]/table[1]/tbody/tr['+str(k)+']/td[4]').text
+                if ren_course == course_code:
+                    print(uni_name)
+                    break
+            except:
+                break
+
+        driver.execute_script("window.history.go(-1)")
+
     if i > 1:
         reset_btn = driver.find_element_by_xpath('/html/body/div[3]/form/table[3]/tbody/tr[2]/td/input')
         reset_btn.click()
 
 
 driver.close()
+end = time.time()
+print("Runtime:", end-start, "seconds")
