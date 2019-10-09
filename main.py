@@ -5,13 +5,12 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.common.by import By
 import time
+import config
 
 start = time.time() #Begin runtime calculation
-
-course_code = "CSCI 2200" #Enter the course number here in the following format: "CSCI 1200"
 SIS_link = 'https://sis.rpi.edu/rss/yhwwkwags.P_Web_Artic_Guide?'
 options = webdriver.ChromeOptions()
-driver = webdriver.Chrome('chromedriver.exe',chrome_options = options)
+driver = webdriver.Chrome('chromedriver.exe',options = options)
 driver.get(SIS_link) 
 driver.maximize_window()
 
@@ -37,7 +36,7 @@ for i in range(1, num_states+1):
         for k in range(2, num_courses//2,2):
             try:
                 ren_course = driver.find_element_by_xpath('/html/body/div[3]/table[1]/tbody/tr['+str(k)+']/td[4]').text
-                if ren_course == course_code:
+                if ren_course == config.course_code:
                     print(uni_name)
                     break
             except:
