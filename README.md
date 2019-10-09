@@ -4,4 +4,4 @@ This script will access Rensselaer Polytechnic Institute's SIS Transfer Course G
 ### Getting Started
 The main.py script requires Python and Selenium. You can install Selenium by running, `pip install selenium`, in your prefered terminal. There is no need to download a driver. This repository comes with one.
 
-Once you have fulfilled the installtion requirements simply change the course_code variable to the course you are looking for. The script should take about 5-6 mins to look through every school on SIS. 
+Once you have fulfilled the installtion requirements simply change the settings of the config.py file and run the main.py. The script should take about 5-6 mins to look through every school on SIS. 
